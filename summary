@@ -1,0 +1,192 @@
+1.arrays.sort comparator有什么规律
+想当于一个比较规则，每两个一比较，如果返回正数则前者大，返回负数就后者大，直接return a-b就能实现，不需要用if else了
+
+
+st.substring()
+Integer.toString()
+Integer.parseInt()
+st.replaceAll(string1, string2)
+
+2.java里的comparator是怎么定义的
+private static final comparator<ListNode> comp = new Comparator<ListNode>(){
+	public int compare(ListNode x, ListNode y){
+		return x.val - y.val;
+	}
+}
+
+//create a new object and add a custom comparator that provides the "MinHeap" behaviour.
+    PriorityQueue<Integer> minheap=new PriorityQueue<Integer>(1,new Comparator<Integer>() {
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            return o1-o2;
+        }
+    });
+
+//create a new object and add a custom comparator that provides the "MaxHeap" behaviour.
+    PriorityQueue<Integer> maxheap=new PriorityQueue<Integer>(1,new Comparator<Integer>() {
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            return o2-o1;
+        }
+    });
+
+
+Queue<ListNode> head = new PriorityQueue(list.size(), comp);
+
+
+3.hashmap
+traverse hash map
+entry
+for(Map.Entry<Integer, Integer> entry : map.entrySet()){
+        Collections.sort(entry.getValue())
+}
+key
+for(String st : map.keySet()){
+}
+value
+for(int num : map.values())
+
+
+4.union find fits for undirected graph
+5.topological sort fits for find there is circle
+6.多与面试官交流
+
+
+7.quick sort
+public static void quickSort(int[] arr, int low, int high) {
+		if (arr == null || arr.length == 0)
+			return;
+ 
+		if (low >= high)
+			return;
+ 
+		// pick the pivot
+		int middle = low + (high - low) / 2;
+		int pivot = arr[middle];
+ 
+		// make left < pivot and right > pivot
+		int i = low, j = high;
+		while (i <= j) {
+			while (arr[i] < pivot) {
+				i++;
+			}
+ 
+			while (arr[j] > pivot) {
+				j--;
+			}
+ 
+			if (i <= j) {
+				int temp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = temp;
+				i++;
+				j--;
+			}
+		}
+ 
+		// recursively sort two sub parts
+		if (low < j)
+			quickSort(arr, low, j);
+ 
+		if (high > i)
+			quickSort(arr, i, high);
+	}
+
+
+
+8.merge sort
+public class MergerSort
+{
+	public static void main(String[] args)
+	{
+		Integer[] a = {2, 6, 3, 5, 1};
+		mergeSort(a);
+		System.out.println(Arrays.toString(a));
+	}
+
+	public static void mergeSort(Comparable [ ] a)
+	{
+		Comparable[] tmp = new Comparable[a.length];
+		mergeSort(a, tmp,  0,  a.length - 1);
+	}
+
+
+	private static void mergeSort(Comparable [ ] a, Comparable [ ] tmp, int left, int right)
+	{
+		if( left < right )
+		{
+			int center = (left + right) / 2;
+			mergeSort(a, tmp, left, center);
+			mergeSort(a, tmp, center + 1, right);
+			merge(a, tmp, left, center + 1, right);
+		}
+	}
+
+
+    private static void merge(Comparable[ ] a, Comparable[ ] tmp, int left, int right, int rightEnd )
+    {
+        int leftEnd = right - 1;
+        int k = left;
+        int num = rightEnd - left + 1;
+
+        while(left <= leftEnd && right <= rightEnd)
+            if(a[left].compareTo(a[right]) <= 0)
+                tmp[k++] = a[left++];
+            else
+                tmp[k++] = a[right++];
+
+        while(left <= leftEnd)    // Copy rest of first half
+            tmp[k++] = a[left++];
+
+        while(right <= rightEnd)  // Copy rest of right half
+            tmp[k++] = a[right++];
+
+        // Copy tmp back
+        for(int i = 0; i < num; i++, rightEnd--)
+            a[rightEnd] = tmp[rightEnd];
+    }
+ }
+
+9.get median from data stream
+we can use a minheap and a maxheap, minheap store the number bigger than median, maxheap stores numbers smaller than median. 
+first store the number in maxHeap, 
+then pop the top number in maxheap and store in minheap
+if the size of minheap bigger than size of maxheap, pop the top in minheap and push to maxheap
+the median either in the minheap or the average of top in minheap and top in maxheap
+
+10.reservoir sampling
+get a number in random with 1/n probability
+this can be used to estimate the median in data stream with loss of accuracy
+
+when the sample size is 10000
+int n = 0;  // Running count of elements observed so far  
+#define SIZE 10000
+int reservoir[SIZE];  
+
+while(streamHasData())
+{
+  int x = readNumberFromStream();
+
+  if (n < SIZE)
+  {
+       reservoir[n++] = x;
+  }         
+  else 
+  {
+      int p = random(++n); // Choose a random number 0 >= p < n
+      if (p < SIZE)
+      {
+           reservoir[p] = x;
+      }
+  }
+}
+
+
+
+11.remove duplicates from sorted array or sorted list
+the same idea:
+for list. have a dummy node as  a beginning, insert at its end;
+for array: have a index as beginning, replace from this index
+
+
+
