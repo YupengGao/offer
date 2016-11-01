@@ -1,0 +1,23 @@
+class problem1_2{
+	public static String reverse(String st){
+		if(st.length() == 0){
+			return "";
+		}
+		int left  = 0;
+		int right = st.length() - 1;
+		char arr[] = st.toCharArray();
+		while(left < right){
+			char temp = arr[left];
+			arr[left] = arr[right];
+			arr[right] = temp;
+			left++;
+			right--;
+		}
+		return new String(arr);
+	}
+
+	public static void main(String args[]){
+		String st = "asdfg";
+		System.out.println(reverse(st));
+	}
+}
