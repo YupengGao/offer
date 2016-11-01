@@ -1,0 +1,28 @@
+class problem1_3{
+	public static boolean isPermutation(String st1, String st2){
+		if(st1.length() != st2.length()){
+			return false;
+		}
+		int arr[] = new int[256];
+		for(int i = 0 ; i < st1.length(); i++){
+			char temp1 = st1.charAt(i);
+			arr[temp1]++;
+		}
+		for(int j = 0 ; j < st2.length(); j++){
+			char temp2 = st2.charAt(j);
+			arr[temp2]--;
+		}
+		for(int num : arr){
+			if(num != 0){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static void main(String args[]){
+		String st1 = "asdfg";
+		String st2 = "gadsffsd";
+		System.out.println(isPermutation(st1, st2));
+	}
+}
