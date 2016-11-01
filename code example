@@ -1,0 +1,99 @@
+//use data structure generously
+//write a function to add two simple mathematical expressions which are of the form Axa + Bxb + . . .
+
+1.bad implementation
+
+int[] sum(double[] expr1, double []expr2){
+	
+}
+
+2.less bad implementation
+
+int[] sum(double coeffs1[], double expon1[],
+			double coeffs2, double expon2[]){
+
+			}
+
+3.good implementation
+
+class Exprterm{
+	double codffs;
+	double exponent;
+} 
+
+Exprterm[] sum(Exprterm []expr1, Exprterm []expr2){
+	
+}
+
+
+appropriate code reuse
+//write a function to check if the value of a binary number (passed as a string) equals the hexadecimal representation of a string.
+
+public static boolean compareBinToHex(String binary, String hex){
+		int n1 = convertToBase(binary, 2);
+		int n2 = convertToBase(hex, 16);
+		if(n1 < 0 || n2 < 0){
+			return false;
+		}else{
+			return n1 == n2;
+		}
+	}
+
+	public static int digitToValue(char c){
+		if(c >= '0' && c <= '9') return c - '0';
+		else if(c >= 'A' && c <= 'F') return 10 + c - 'A';
+		else if(c >= 'a' && c <= 'f') return 10 + c - 'a';
+		return -1;
+	}
+
+	public static int convertToBase(String number, int base){
+		if(base < 2 || (base > 10 && base != 16)) return -1;
+		int res = 0;
+		for(int i = number.length() - 1; i >= 0 ;i--){
+			int value = digitToValue(number.charAt(i));
+			if(value < 0 || value >= base){
+				return -1;
+			}
+			int exp = number.length() - 1 - i;
+			res += value * Math.pow(base, exp);
+		}
+		return res;
+	}
+  
+  
+  
+  //write a function to swap the minimum and maximum element in the array
+	public static int getMinIndex(int []array){
+		int minIndex = 0;
+		for(int i = 1 ; i < array.length; i++){
+		 	if(array[i] < array[minIndex]){
+		 		minIndex = i;
+		 	}
+		}
+		return minIndex;
+	}
+
+	public static int getMaxIndex(int []array){
+		int maxIndex = 0;
+		for(int i = 1; i < array.length; i++){
+			if(array[i] > maxIndex){
+				maxIndex = i;
+			}
+		}
+		return maxIndex;
+	}
+
+	public static void swap(int arr[],int i, int j){
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+
+	public static void SwapMinMaxElem(int array[]){
+		int minIndex = getMinIndex(array);
+		int maxIndex = getMaxIndex(array);
+		if(minIndex == maxIndex){
+			return;
+		}
+		swap(array, minIndex, maxIndex);
+	}
