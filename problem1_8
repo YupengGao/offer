@@ -1,0 +1,10 @@
+problem1_8
+如果s2是s1的rotation，那么s2必然是s1+s1的substring。很巧妙
+public boolean isRotation(String s1, String s2) {
+    if (s1 == null || s2 == null) {
+        return s1 == null && s2 == null;
+    }
+    if (s1.length() != s2.length()) {
+        return false;
+    }
+    return isSubstring(s1+s1, s2);
