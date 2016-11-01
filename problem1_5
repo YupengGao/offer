@@ -1,0 +1,34 @@
+class problem1_5{
+	public static String compress(String st){
+		if(st == null || st.length() == 0){
+			return "";
+		}
+
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0 ; i < st.length(); i++){
+			sb.append(st.charAt(i));
+			int count = 1;
+			int index = i;
+			while(index + 1 < st.length() && st.charAt(index) == st.charAt(index + 1)){
+				index++;
+				count++;
+			}
+			if(index != i){
+				sb.append(count);
+				i = index;
+			}
+
+		}
+
+		return sb.length() >= st.length() ? st : sb.toString();
+	}
+	public static void main(String args[]){
+		String st = "aabcccccaaa"; 
+		System.out.println(compress(st));
+		System.out.println(compress("aabcccccaaa"));
+        System.out.println(compress("aabbcc"));
+        System.out.println(compress("aaaaaaaaaaaaaaaaaaaaa"));
+        System.out.println(compress("abcdefg"));
+        System.out.println(compress("a"));
+	}
+}
