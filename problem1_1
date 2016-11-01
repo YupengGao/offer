@@ -1,0 +1,21 @@
+//Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?
+class problem1_1{
+	public static boolean isUnique(String st){
+		if(st.length() == 0){
+			return true;
+		}
+		for(int i = 0 ; i < st.length(); i++){
+			for(int j = 0 ; j < i; j++){
+				if(st.charAt(i) == st.charAt(j)){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	public static void main(String args[]){
+	 	String st1 = "abcc";
+	 	System.out.println(isUnique(st1));
+	}
+}
