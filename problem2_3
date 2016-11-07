@@ -1,0 +1,48 @@
+class problem2_3{
+	static class Node{
+		int val;
+		Node next;
+		Node(int v){
+			this.val = v;
+		}
+	}
+	public static void deleteMid(Node mid){
+		if(mid == null){
+			return;
+		}
+		while(mid != null && mid.next != null && mid.next.next != null){
+			mid.val = mid.next.val;
+			mid = mid.next;
+		}
+		mid.val = mid.next.val;
+		mid.next = null;
+	}
+
+	public static void deleteMidMethod2(Node mid){
+		if(mid == null){
+			return;
+		}
+		mid.val = mid.next.val;
+		mid.next = mid.next.next;
+	}
+	public static void main(String[] args) {
+		Node node1 = new Node(5);
+		Node node6 = new Node(4);
+		Node node2 = new Node(3);
+		Node node3 = new Node(2);
+		Node node4 = new Node(1);
+		Node node5 = new Node(0);
+		
+		node1.next = node6;
+		node6.next = node2;
+		node2.next = node3;
+		node3.next = node4;
+		node4.next = node5;
+		Node head = node1;
+		deleteMidMethod2(node6);
+		while(head != null){
+			System.out.println(head.val);
+			head = head.next;
+		}
+	}
+}
