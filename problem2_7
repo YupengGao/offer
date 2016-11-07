@@ -1,0 +1,30 @@
+//problem2_7  Implement a function to check if a linked list is a palindrome
+public class Solution {
+    public boolean isPalindrome(ListNode head) {
+        if(head == null){
+            return true;
+        }
+        ListNode fast = head.next;
+        ListNode slow = head;
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        ListNode palHead = slow.next;
+        ListNode first = null;
+        while(palHead != null){
+            ListNode temp = palHead.next;
+            palHead.next = first;
+            first = palHead;
+            palHead = temp;
+        }
+        while(first != null && head != null){
+            if(first.val != head.val){
+                return false;
+            }
+            first = first.next;
+            head = head.next;
+        }
+        return true;
+    }
+}
