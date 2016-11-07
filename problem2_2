@@ -1,0 +1,42 @@
+class problem2_2{
+	static class Node{
+		int val;
+		Node next;
+		Node(int v){
+			this.val = v;
+		}
+	}
+	
+	public static Node returnKthtoLast(Node head, int k, int index[]){
+		if(head == null){
+			return null;
+		}
+		Node node = returnKthtoLast(head.next, k, index);
+		index[0] = index[0] + 1;
+		if(index[0] == k){
+			return head;
+		}
+		return node;
+	}
+
+	public static void main(String[] args) {
+		Node node1 = new Node(5);
+		Node node6 = new Node(5);
+		Node node2 = new Node(3);
+		Node node3 = new Node(5);
+		Node node4 = new Node(3);
+		Node node5 = new Node(1);
+		
+		node1.next = node6;
+		node6.next = node2;
+		node2.next = node3;
+		node3.next = node4;
+		node4.next = node5;
+		Node head = node1;
+		Node res = returnKthtoLast(head, 4 , new int[1]);
+		while(res != null){
+			System.out.println(res.val);
+			res = res.next;
+		}
+	}
+}
