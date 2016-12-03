@@ -1,0 +1,80 @@
+// Imagine a (literal) stack of plates. If the stack gets too high, it might topple. 
+// Therefore, in real life, we would likely start a new stack when the previous stack exceeds somethreshold.
+// Implement a data structureSetOf Stacks that mimics this. 
+//SetOf Stacks should be composed of several stacks and should create a new stack once the previous one exceeds capacity. 
+//SetOf Stacks. push() and SetOf Stacks. pop() should behave identically to a single stack 
+//(that is,popO should return the same values as it would if there were just a single stack).
+import java.util.*;
+public class problem3_3{
+	private final int size = 3;
+	private List<Stack<Integer>> list = new LinkedList<>();
+
+
+	public void push(int x){
+		if(list.isEmpty() || list.get(list.size() - 1).size() >= size){
+			Stack<Integer> stack = new Stack<Integer>();
+			stack.push(x);
+			list.add(stack);
+		}else{
+			list.get(list.size() - 1).push(x);
+		}
+	}
+
+	public int pop(){
+		if(list.isEmpty()){
+			throw new IllegalArgumentException("the stack is empty");
+		}
+		Stack<Integer> last = list.get(list.size() -1);
+		int res = last.pop();
+		if(last.isEmpty()){
+			list.remove(list.size() - 1);
+		}
+		return res;
+	}
+
+	public int popAt(int index){
+		if(list.isEmpty()){
+			throw new IllegalArgumentException("the stack is Empty");
+		}
+		int res = list.get(index).pop();
+		for(int i = index; i < list.size() - 1; i++){
+			Stack<Integer> cur = list.get(i);
+			Stack<Integer> next = list.get(i + 1);
+			Stack<Integer> temp = new Stack<Integer>();
+			while(!next.isEmpty()){
+				temp.push(next.pop());
+			}
+			if(!temp.isEmpty()){
+				cur.push(temp.pop());
+			}
+			while(!temp.isEmpty()){
+				next.push(temp.pop());
+			}
+		}
+		if(list.get(list.size() - 1).isEmpty()){
+			list.remove(list.size() - 1);
+		}
+		return res;
+	}
+
+	 public void printStacks() {
+        for (Stack<Integer> stack : list) {
+            for (int item : stack)
+                System.out.print(item + " ");
+            System.out.println("[TOP]");
+        }
+    }
+
+	public static void main(String[] args) {
+        problem3_3 setOfStacks = new problem3_3();
+        setOfStacks.push(1); setOfStacks.push(2); setOfStacks.push(3);
+        setOfStacks.push(4); setOfStacks.push(5); setOfStacks.push(6);
+        setOfStacks.push(7); setOfStacks.push(8); setOfStacks.push(9);
+        setOfStacks.printStacks();
+        System.out.println();
+        setOfStacks.popAt(1);
+        setOfStacks.printStacks();
+        setOfStacks.popAt(0);
+        setOfStacks.printStacks();
+    }
+}
